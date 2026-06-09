@@ -1,4 +1,4 @@
-# Premium MERN Stack Authentication System
+# MERN Stack Authentication System
 
 A secure, production-grade authentication system built with a clean SaaS-style purple & white theme. Features end-to-end user state management, JWT session cookies, 2FA email OTP verification, password strength metrics, live validation rules, and role-based access control.
 
