@@ -1,103 +1,258 @@
-# MERN Stack Authentication System
+# 🔐 MERN Authentication System
 
-A secure, production-grade authentication system built with a clean SaaS-style purple & white theme. Features end-to-end user state management, JWT session cookies, 2FA email OTP verification, password strength metrics, live validation rules, and role-based access control.
-
----
-
-## Key Features
-
-### Backend API
-- **JWT Authentication**: Secure tokens stored in HTTP-Only, Secure cookies to prevent XSS attacks.
-- **Double-Token Security**: Short-lived Access Tokens (15m) paired with long-lived Refresh Tokens (7d).
-- **Email Verification**: Auto-generates and dispatches 6-digit verification OTP codes via SMTP.
-- **Password Hashing**: Uses `bcrypt` for secure server hashing with customizable salt rounds.
-- **Session Management**: Session checks, active token rotation, and cookie clear handlers.
-
-### Frontend UI
-- **Modern Theme**: Clean, responsive layout with glassmorphic cards, Outfit typography, and dynamic animations.
-- **Verify Email (2FA Screen)**: Center-aligned multi-box entries, keyboard focus-shifting, and a 60-second countdown timer.
-- **Active Password Assessment**: Visual strength segment bars and real-time password requirements checklists.
-- **Sleek Alerts & States**: Color-coded inline banners representing loading spinners, validation warnings, and expired credentials.
-- **State Management**: Redux Toolkit slices managing central auth states and user credentials.
+A production-ready authentication system built with the **MERN Stack** (MongoDB, Express.js, React.js, Node.js). The application implements secure user authentication using JWT, email verification with OTP, password recovery, and role-based authorization while following industry-standard architecture and best practices.
 
 ---
 
-## Directory Structure
+## 📖 Overview
+
+This project demonstrates a complete authentication workflow used in modern web applications. It focuses on security, scalability, maintainability, and clean code organization using a modular architecture.
+
+---
+
+## ✨ Features
+
+### 🔑 Authentication
+
+* User Registration
+* Secure Login & Logout
+* JWT Access & Refresh Token Authentication
+* HTTP-Only Cookie-Based Authentication
+* Protected Routes
+* Session Persistence
+
+### 📧 Email Verification
+
+* Email OTP Verification
+* OTP Expiration Handling
+* Resend Verification OTP
+
+### 🔒 Password Management
+
+* Forgot Password
+* Reset Password using OTP
+* Change Password
+* Password Strength Validation
+
+### 👤 User Management
+
+* User Profile
+* Update Profile Information
+* Role-Based Authorization
+
+### 🎨 Frontend
+
+* Responsive UI
+* Modern Authentication Screens
+* Redux Toolkit State Management
+* Form Validation
+* Loading & Error States
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+* React.js
+* Vite
+* Redux Toolkit
+* React Router
+* Axios
+* Tailwind CSS
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* Bcrypt
+* Nodemailer
+
+### Development Tools
+
+* Git & GitHub
+* Postman
+* dotenv
+
+---
+
+## 📂 Project Structure
 
 ```text
-3_Authentication_system/
+mern-auth-system/
+│
 ├── backend/
-│   ├── src/                  # Server routing, controllers, models, and middlewares
-│   ├── server.js             # Server startup entry point
-│   ├── .env.example          # Generic template for server credentials
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── repositories/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   └── server.js
+│   ├── .env.example
 │   └── package.json
+│
 ├── frontend/
-│   ├── src/                  # React components, pages, hooks, slices, and layouts
-│   ├── index.html            # Core template and Google Font assets
-│   ├── .env.example          # API endpoint configurations template
+│   ├── src/
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── features/
+│   │   ├── hooks/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   ├── routes/
+│   │   └── utils/
+│   ├── .env.example
 │   └── package.json
-├── .gitignore                # Global workspace git filter rules
-└── README.md                 # Project developer guide
+│
+└── README.md
 ```
 
 ---
 
-## Getting Started
+## ⚙️ Installation
 
-### Prerequisites
-- Node.js (v18+)
-- npm or yarn
-- MongoDB Instance (Atlas or Local)
+### Clone Repository
 
-### 1. Server Configuration
-1. Navigate to the backend folder:
-   ```bash
-   cd backend
-   ```
-2. Copy the `.env.example` file to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-3. Set your MongoDB URI and SMTP credentials inside `.env`.
-4. Install dependencies:
-   ```bash
-   npm install
-   ```
-5. Run the server in development mode:
-   ```bash
-   npm run dev
-   ```
-
-### 2. Client Configuration
-1. Navigate to the frontend folder:
-   ```bash
-   cd ../frontend
-   ```
-2. Copy the `.env.example` file to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Run the Vite app:
-   ```bash
-   npm run dev
-   ```
+```bash
+git clone https://github.com/Harsh-maisuriya-1910/mern-auth-system.git
+```
 
 ---
 
-## API Documentation
+### Backend Setup
 
-| Method | Endpoint | Description | Auth Required |
-| :--- | :--- | :--- | :---: |
-| **POST** | `/api/auth/register` | Register a new user and dispatch OTP code | No |
-| **POST** | `/api/auth/verify-email` | Validate account using 6-digit OTP code | No |
-| **POST** | `/api/auth/login` | Authenticate credentials and set session cookies | No |
-| **POST** | `/api/auth/logout` | Clear HTTP-only auth cookies and kill session | Yes |
-| **GET** | `/api/auth/me` | Fetch active user credentials from session | Yes |
-| **POST** | `/api/auth/forgot-password` | Dispatches reset OTP code to registered email | No |
-| **POST** | `/api/auth/reset-password` | Validate OTP and write a new account password | No |
-| **PATCH** | `/api/auth/update-profile` | Update username / profile metadata | Yes |
-| **PATCH** | `/api/auth/change-password` | Verify current password and write a new one | Yes |
+```bash
+cd backend
+npm install
+```
+
+Create a **.env** file from **.env.example**
+
+```bash
+npm run dev
+```
+
+---
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+```
+
+Create a **.env** file from **.env.example**
+
+```bash
+npm run dev
+```
+
+---
+
+## 🔗 API Endpoints
+
+| Method | Endpoint                    | Description             |
+| ------ | --------------------------- | ----------------------- |
+| POST   | `/api/auth/register`        | Register a new user     |
+| POST   | `/api/auth/login`           | Login user              |
+| POST   | `/api/auth/logout`          | Logout user             |
+| GET    | `/api/auth/me`              | Get current user        |
+| POST   | `/api/auth/verify-email`    | Verify email using OTP  |
+| POST   | `/api/auth/forgot-password` | Send password reset OTP |
+| POST   | `/api/auth/reset-password`  | Reset password          |
+| PATCH  | `/api/auth/update-profile`  | Update user profile     |
+| PATCH  | `/api/auth/change-password` | Change password         |
+
+---
+
+## 🔒 Security Features
+
+* JWT Authentication
+* Access & Refresh Tokens
+* HTTP-Only Cookies
+* Password Hashing with Bcrypt
+* Email OTP Verification
+* Secure Password Reset
+* Input Validation
+* Protected API Routes
+* Error Handling Middleware
+
+---
+
+## 📸 Screenshots
+
+Add screenshots of the application here.
+
+```text
+screenshots/
+├── login.png
+├── register.png
+├── verify-email.png
+├── forgot-password.png
+└── dashboard.png
+```
+
+---
+
+## 🚀 Future Improvements
+
+* Google Authentication
+* GitHub Authentication
+* Two-Factor Authentication (2FA)
+* Account Lock after Multiple Failed Attempts
+* User Activity Logs
+* Admin Dashboard
+* Docker Deployment
+* CI/CD Pipeline
+* Unit & Integration Testing
+
+---
+
+## 📚 Learning Outcomes
+
+This project demonstrates practical knowledge of:
+
+* MERN Stack Development
+* Authentication & Authorization
+* REST API Development
+* Redux Toolkit
+* JWT & Cookies
+* MongoDB & Mongoose
+* MVC Architecture
+* Email Integration
+* Secure Coding Practices
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository
+2. Create a new feature branch
+3. Commit your changes
+4. Push to your branch
+5. Open a Pull Request
+
+---
+
+## 👨‍💻 Author
+
+**Harsh Maisuriya**
+
+**Full Stack MERN Developer**
+
+GitHub: **https://github.com/Harsh-maisuriya-1910**
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, consider giving it a **⭐ Star** on GitHub.
