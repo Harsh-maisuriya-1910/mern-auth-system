@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://mern-auth-system-1-qcm7.onrender.com/api",
+  baseURL: "https://mern-auth-system-uqmf.onrender.com/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
