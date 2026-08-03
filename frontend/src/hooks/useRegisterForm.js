@@ -62,6 +62,9 @@ export const useRegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+
+    
     dispatch(clearAuthMessages());
     setFormError("");
 
