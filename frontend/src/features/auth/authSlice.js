@@ -51,12 +51,15 @@ export const loginUser = createAsyncThunk(
 
 export const getMe = createAsyncThunk(
     "auth/getMe",
-    async (_, { rejectWithValue }) => {
+    async (_, thunkAPI) => {
         try {
             const response = await axiosInstance.get("/auth/me");
-            return response.data;
+
+            return response.data.data;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch user");
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || "Unauthorized"
+            );
         }
     }
 );
@@ -224,20 +227,21 @@ const authSlice = createSlice({
             })
             .addCase(getMe.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload.data;
-                state.isAuthenticated = true;
                 state.authChecked = true;
+                state.isAuthenticated = true;
+                state.user = action.payload;
             })
             .addCase(getMe.rejected, (state) => {
                 state.loading = false;
-                state.user = null;
-                state.isAuthenticated = false;
                 state.authChecked = true;
+                state.isAuthenticated = false;
+                state.user = null;
             })
 
             .addCase(logoutUser.pending, (state) => {
                 state.loading = true;
             })
+            
             .addCase(logoutUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = null;

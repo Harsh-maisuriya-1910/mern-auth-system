@@ -1,19 +1,20 @@
-// CHANGE APPLIED: Configured the router endpoints to wrap public pages with PublicRoute and protected pages with ProtectedRoute.
-// Also updated the imports to point to corrected folders (layouts/RootLayout instead of layout/AppLayout).
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import RootLayout from "../layouts/RootLayout";
-import ProtectedRoute from "./ProtectedRoute";
+
 import PublicRoute from "./PublicRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 import Register from "../pages/Register";
-import VerifyEmail from "../pages/VerifyEmail";
 import Login from "../pages/Login";
-import Profile from "../pages/Profile";
+import VerifyEmail from "../pages/VerifyEmail";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
+
+import Profile from "../pages/Profile";
 import UpdateProfile from "../pages/UpdateProfile";
 import ChangePassword from "../pages/ChangePassword";
+
 import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
@@ -21,16 +22,21 @@ export const router = createBrowserRouter([
         path: "/",
         element: <RootLayout />,
         errorElement: <ErrorPage />,
+
         children: [
             {
                 index: true,
                 element: <Navigate to="/profile" replace />,
             },
 
-            // Public Routes Group (Guest only)
+            // ---------------- Public Routes ----------------
             {
                 element: <PublicRoute />,
                 children: [
+                    {
+                        path: "login",
+                        element: <Login />,
+                    },
                     {
                         path: "register",
                         element: <Register />,
@@ -38,10 +44,6 @@ export const router = createBrowserRouter([
                     {
                         path: "verify-email",
                         element: <VerifyEmail />,
-                    },
-                    {
-                        path: "login",
-                        element: <Login />,
                     },
                     {
                         path: "forgot-password",
@@ -54,7 +56,7 @@ export const router = createBrowserRouter([
                 ],
             },
 
-            // Protected Routes Group (Auth only)
+            // ---------------- Protected Routes ----------------
             {
                 element: <ProtectedRoute />,
                 children: [
