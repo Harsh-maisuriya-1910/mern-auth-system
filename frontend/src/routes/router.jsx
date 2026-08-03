@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import RootLayout from "../layouts/RootLayout";
 
@@ -22,14 +22,20 @@ export const router = createBrowserRouter([
         path: "/",
         element: <RootLayout />,
         errorElement: <ErrorPage />,
-
         children: [
+            // Default Route
             {
                 index: true,
-                element: <Navigate to="/profile" replace />,
+                element: <PublicRoute />,
+                children: [
+                    {
+                        index: true,
+                        element: <Login />,
+                    },
+                ],
             },
 
-            // ---------------- Public Routes ----------------
+            // Public Routes
             {
                 element: <PublicRoute />,
                 children: [
@@ -56,7 +62,7 @@ export const router = createBrowserRouter([
                 ],
             },
 
-            // ---------------- Protected Routes ----------------
+            // Protected Routes
             {
                 element: <ProtectedRoute />,
                 children: [

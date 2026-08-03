@@ -1,25 +1,41 @@
+import { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getMe } from "../features/auth/authSlice";
 
 export default function ProtectedRoute() {
+    const dispatch = useDispatch();
     const location = useLocation();
 
-    const {
-        loading,
-        authChecked,
-        isAuthenticated,
-    } = useSelector((state) => state.auth);
+    const { isAuthenticated, authChecked, loading } = useSelector(
+        (state) => state.auth
+    );
 
-    // Wait until authentication check finishes
-    if (loading || !authChecked) {
+    useEffect(() => {
+        if (!authChecked) {
+            dispatch(getMe());
+        }
+    }, [dispatch, authChecked]);
+
+    // Wait until authentication check completes
+    if (!authChecked || loading) {
         return (
-            <div className="auth-loading">
-                <h2>Checking authentication...</h2>
+            <div
+                style={{
+                    minHeight: "100vh",
+                    display: "grid",
+                    placeItems: "center",
+                    fontSize: "18px",
+                    fontWeight: 500,
+                }}
+            >
+                Checking authentication...
             </div>
         );
     }
 
-    // User not logged in
+    // User is not logged in
     if (!isAuthenticated) {
         return (
             <Navigate
@@ -30,6 +46,6 @@ export default function ProtectedRoute() {
         );
     }
 
-    // User authenticated
+    // User is authenticated
     return <Outlet />;
 }

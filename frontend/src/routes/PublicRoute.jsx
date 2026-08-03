@@ -1,18 +1,35 @@
+import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getMe } from "../features/auth/authSlice";
 
 export default function PublicRoute() {
-    const {
-        loading,
-        authChecked,
-        isAuthenticated,
-    } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
-    // Wait until authentication check finishes
-    if (loading || !authChecked) {
+    const { isAuthenticated, authChecked, loading } = useSelector(
+        (state) => state.auth
+    );
+
+    useEffect(() => {
+        if (!authChecked) {
+            dispatch(getMe());
+        }
+    }, [dispatch, authChecked]);
+
+    // Wait until authentication finishes
+    if (!authChecked || loading) {
         return (
-            <div className="auth-loading">
-                <h2>Checking authentication...</h2>
+            <div
+                style={{
+                    minHeight: "100vh",
+                    display: "grid",
+                    placeItems: "center",
+                    fontSize: "18px",
+                    fontWeight: 500,
+                }}
+            >
+                Checking authentication...
             </div>
         );
     }
@@ -22,5 +39,6 @@ export default function PublicRoute() {
         return <Navigate to="/profile" replace />;
     }
 
+    // Guest user
     return <Outlet />;
 }
